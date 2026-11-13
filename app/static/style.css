@@ -1,0 +1,91 @@
+:root {
+  --bg: #f5f7fa;
+  --panel: #ffffff;
+  --text: #1c2430;
+  --muted: #5d6878;
+  --border: #d9dee6;
+  --accent: #1f5fae;
+  --ok: #1d7a46;
+  --warn: #9a6200;
+  --info: #4a4fb0;
+  --chip: #eef2f8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12161c;
+    --panel: #1b2129;
+    --text: #e3e8ef;
+    --muted: #9aa5b4;
+    --border: #2e3744;
+    --accent: #6ea8ff;
+    --ok: #4cc782;
+    --warn: #f0b44c;
+    --info: #9ea3ff;
+    --chip: #232b36;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 20px 24px 40px;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+}
+a { color: var(--accent); }
+h1 { margin: 0; font-size: 1.5rem; }
+h2 { margin: 0 0 .6rem; font-size: 1.15rem; }
+h3 { margin: 1.1rem 0 .4rem; font-size: 1rem; }
+.muted { color: var(--muted); font-weight: normal; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; max-width: 1200px; margin: 0 auto; }
+.tagline { margin: .2rem 0 0; color: var(--muted); }
+.kb-link { white-space: nowrap; }
+.notice {
+  max-width: 1200px; margin: 14px auto; padding: 8px 12px;
+  border-left: 4px solid var(--accent); background: var(--panel); color: var(--muted);
+}
+.layout { display: grid; grid-template-columns: minmax(300px, 5fr) 7fr; gap: 18px; max-width: 1200px; margin: 0 auto; align-items: start; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+.panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+.samples { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.chip {
+  border: 1px solid var(--border); background: var(--chip); color: var(--text);
+  border-radius: 999px; padding: 4px 10px; font-size: .85rem; cursor: pointer;
+}
+.chip:hover { border-color: var(--accent); }
+textarea {
+  width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text); font: inherit; resize: vertical;
+}
+.actions { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+button {
+  background: var(--accent); color: #fff; border: 0; border-radius: 8px;
+  padding: 8px 16px; font: inherit; cursor: pointer;
+}
+button:disabled { opacity: .6; cursor: progress; }
+button.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); margin-top: 6px; }
+.status { color: var(--muted); font-size: .9rem; }
+.result-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.badge { padding: 3px 10px; border-radius: 999px; font-size: .8rem; font-weight: 600; border: 1px solid currentColor; }
+.badge-answer { color: var(--ok); }
+.badge-clarify { color: var(--info); }
+.badge-insufficient_sources { color: var(--warn); }
+.callout { border-radius: 8px; padding: 8px 12px; margin: 10px 0; border: 1px solid var(--border); }
+.callout p { margin: .3rem 0 0; }
+.callout.question { border-left: 4px solid var(--info); }
+.callout.escalate { border-left: 4px solid var(--warn); }
+ol li { margin-bottom: .35rem; }
+sup a { text-decoration: none; font-weight: 600; margin-left: 2px; }
+.sources { padding-left: 1rem; }
+.sources li { margin-bottom: .25rem; }
+.debug { margin-top: 16px; font-size: .9rem; }
+.debug table { border-collapse: collapse; width: 100%; margin-top: 6px; }
+.debug th, .debug td { text-align: left; border-bottom: 1px solid var(--border); padding: 4px 6px; }
+/* Knowledge-base pages */
+.kb { max-width: 820px; margin: 0 auto; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 28px 28px; }
+.kb section { padding: 4px 12px; margin: 10px -12px; border-radius: 8px; }
+.kb section:target { background: var(--chip); outline: 2px solid var(--accent); }
+.kb .anchor { text-decoration: none; color: var(--muted); }
+.kb .sid { margin: -.3rem 0 .4rem; font-size: .8rem; color: var(--muted); }
+.crumbs { font-size: .9rem; }
+code { background: var(--chip); padding: 1px 4px; border-radius: 4px; }

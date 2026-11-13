@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IT Helpdesk Copilot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>IT Helpdesk Copilot</h1>
+      <p class="tagline">Local, citation-grounded drafts for a human support agent. Fictional company: Acme Logistics.</p>
+    </div>
+    <a class="kb-link" href="/kb" target="_blank" rel="noopener">Knowledge base</a>
+  </header>
+
+  <p class="notice">The assistant only suggests steps and drafts a reply for review. It never runs commands,
+    changes accounts, sends messages or connects to company systems.</p>
+
+  <main class="layout">
+    <section class="panel input-panel" aria-labelledby="ticket-label">
+      <h2 id="ticket-label">Support ticket</h2>
+      <div class="samples" id="samples" aria-label="Sample tickets"></div>
+      <form id="ticket-form">
+        <textarea id="ticket" name="ticket" rows="9" maxlength="4000"
+                  placeholder="Paste an IT support ticket here..." required></textarea>
+        <div class="actions">
+          <button type="submit" id="submit">Analyse ticket</button>
+          <span id="status" class="status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel result-panel" id="result" hidden aria-live="polite">
+      <div class="result-head">
+        <h2>Suggested handling</h2>
+        <span id="mode" class="badge"></span>
+      </div>
+
+      <h3>Summary</h3>
+      <p id="summary"></p>
+
+      <div id="question-box" class="callout question" hidden>
+        <strong>Ask the requester</strong>
+        <p id="question"></p>
+      </div>
+
+      <div id="escalation-box" class="callout escalate" hidden>
+        <strong>Escalation suggested</strong>
+        <p id="escalation"></p>
+      </div>
+
+      <div id="steps-box" hidden>
+        <h3>Troubleshooting steps</h3>
+        <ol id="steps"></ol>
+      </div>
+
+      <div id="sources-box" hidden>
+        <h3>Sources cited</h3>
+        <ul id="sources" class="sources"></ul>
+      </div>
+
+      <div id="draft-box" hidden>
+        <h3>Draft reply <span class="muted">(review and edit before sending)</span></h3>
+        <textarea id="draft" rows="8"></textarea>
+        <button type="button" id="copy" class="secondary">Copy draft</button>
+      </div>
+
+      <details class="debug">
+        <summary>Retrieval details</summary>
+        <p id="retrieval-meta" class="muted"></p>
+        <table>
+          <thead><tr><th>Section</th><th>Score</th><th>Sent to model</th></tr></thead>
+          <tbody id="hits"></tbody>
+        </table>
+      </details>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+# Local configuration and secrets
+.env
+*.pem
+*.key
+
+# Search index and runtime data
+data/
+*.sqlite3
+
+# Model weights and local runtimes (never commit)
+*.gguf
+*.safetensors
+*.bin
+models/
+.ollama/
+.runtime/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# Private material that must stay out of this public repo
+private/
+tickets-real/
+*.pdf
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

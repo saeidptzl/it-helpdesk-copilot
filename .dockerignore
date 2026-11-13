@@ -1,0 +1,14 @@
+.git
+.env
+data/
+docs/
+tests/
+scripts/
+.pytest_cache/
+__pycache__/
+*.pyc
+.venv/
+venv/
+# Only top-level docs are excluded: kb/*.md must stay in the build context.
+README.md
+LICENSE

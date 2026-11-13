@@ -1,0 +1,10 @@
+[project]
+name = "it-helpdesk-copilot"
+version = "1.0.0"
+description = "Local, citation-grounded IT helpdesk assistant (FastAPI + Ollama + RAG)"
+requires-python = ">=3.12"
+license = "MIT"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

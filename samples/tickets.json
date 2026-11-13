@@ -1,0 +1,32 @@
+[
+  {
+    "id": "vpn-auth",
+    "title": "VPN: authentication failed",
+    "ticket": "Hi IT, since this morning the VPN client says \"Authentication failed\" every time I try to connect from home. I changed my password yesterday afternoon. I need to reach the S: drive for a report due today. - Marta (Sales)"
+  },
+  {
+    "id": "unsupported-software",
+    "title": "Unsupported: install new software",
+    "ticket": "Please install Adobe Photoshop on my laptop, I need it for a presentation tomorrow morning. Thanks, Luca"
+  },
+  {
+    "id": "share-denied",
+    "title": "S: drive: access denied",
+    "ticket": "I moved from Sales to Finance last week. When I open S:\\Finance\\Reports I get \"Access denied\". My new colleagues can open it."
+  },
+  {
+    "id": "printer-offline",
+    "title": "Printer offline",
+    "ticket": "The second floor printer PRN-OPS-02 shows Offline on my laptop and my print jobs are stuck in the queue. Others nearby seem to be printing fine."
+  },
+  {
+    "id": "restore-file",
+    "title": "Restore a deleted file",
+    "ticket": "I accidentally deleted S:\\Finance\\Q3-forecast.xlsx yesterday around 4 pm. Can you get it back? It was fine yesterday morning."
+  },
+  {
+    "id": "vague",
+    "title": "Ambiguous: \"it's not working\"",
+    "ticket": "It's not working again. Please fix ASAP!!"
+  }
+]

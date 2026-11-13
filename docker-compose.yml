@@ -1,0 +1,71 @@
+name: it-helpdesk-copilot
+
+# Start:          docker compose up -d --build
+# Status:         docker compose ps            (wait until "app" is healthy)
+# Refresh index:  docker compose exec app python -m app.index --rebuild
+# Stop:           docker compose down           (volumes with models and index are kept)
+
+x-models: &models
+  CHAT_MODEL: ${CHAT_MODEL:-qwen2.5:1.5b}
+  EMBED_MODEL: ${EMBED_MODEL:-nomic-embed-text}
+
+services:
+  ollama:
+    image: ollama/ollama:${OLLAMA_IMAGE_TAG:-0.40.16}
+    # Not published to the host: only the app container can reach Ollama.
+    volumes:
+      - ollama-models:/root/.ollama
+    environment:
+      OLLAMA_KEEP_ALIVE: ${OLLAMA_KEEP_ALIVE:-30m}
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+    restart: unless-stopped
+
+  # One-shot job: downloads the configured models into the ollama-models volume (skipped quickly if present).
+  model-pull:
+    image: ollama/ollama:${OLLAMA_IMAGE_TAG:-0.40.16}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      <<: *models
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: ["/bin/sh", "-c", "ollama pull \"$$CHAT_MODEL\" && ollama pull \"$$EMBED_MODEL\""]
+    restart: "no"
+
+  app:
+    build: .
+    depends_on:
+      model-pull:
+        condition: service_completed_successfully
+    environment:
+      <<: *models
+      OLLAMA_URL: http://ollama:11434
+      TOP_K: ${TOP_K:-4}
+      MIN_SCORE: ${MIN_SCORE:-0.60}
+      CONFIDENT_SCORE: ${CONFIDENT_SCORE:-0.70}
+      AMBIGUITY_MARGIN: ${AMBIGUITY_MARGIN:-0.035}
+      MIN_SHARED_TERMS: ${MIN_SHARED_TERMS:-2}
+      MIN_GROUNDING: ${MIN_GROUNDING:-0.35}
+      NUM_CTX: ${NUM_CTX:-4096}
+      LLM_TIMEOUT_S: ${LLM_TIMEOUT_S:-240}
+    volumes:
+      - index-data:/data
+    ports:
+      # Bound to localhost only. Change deliberately if you need access from other machines.
+      - "127.0.0.1:${APP_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)"]
+      interval: 15s
+      timeout: 8s
+      retries: 10
+      start_period: 60s
+    restart: unless-stopped
+
+volumes:
+  ollama-models:
+  index-data:
